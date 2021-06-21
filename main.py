@@ -3,6 +3,8 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
+import cogs.music
+
 load_dotenv()
 TOKEN = os.getenv("TOKEN")
 
@@ -32,7 +34,7 @@ async def reload(ctx, extension):
     client.load_extension(f'cogs.{extension}')
     print('reload ' + extension)
 
-
+client.load_extension(f'cogs.music')
 # for filename in os.listdir('./cogs'):
 #     if filename.endswith('.py'):
 #         client.load_extension(f'cogs.{filename[:-3]}')
