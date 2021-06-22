@@ -477,16 +477,15 @@ class Music(commands.Cog, wavelink.WavelinkMixin):
 
         query = query.strip('<>')
         if not URL_REG.match(query):
-            query = f'ytsearch:{query}'
+            query = f'yesarch:{query}'
 
         tracks = await self.bot.wavelink.get_tracks(query)
-        print(tracks[1])
 
-        for x in tracks:
-            xi = []
-            xi.append(f"{x.title}")
+        xi = []
+        for i, x in enumerate(tracks[:5]):
+            xi.append(f"{i + 1}. {x.title} [{x.length // 60000}:{str(x.length % 60).zfill(2)}]")
             print(('\n'.join(xi)))
-            # await ctx.send('berikut beberapa hasil pencarian \n' + x)
+        await ctx.send(('\n'.join(xi)))
 
         if not tracks:
             return await ctx.send('No songs were found with that query. Please try again.', delete_after=15)
